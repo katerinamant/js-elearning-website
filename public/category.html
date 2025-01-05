@@ -6,44 +6,51 @@
     <!-- Load the Handlebars library-->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 
-    <!-- Handlebars categories template -->
-    <script id="categories-template" type="text/x-handlebars-template">
-      <ul class="categories" id="categories">
-        {{#each categories}}
+    <!-- Handlebars category title template -->
+    <script id="category-title-template" type="text/x-handlebars-template">
+      <section class="intro">
+        <h1>{{title}}</h1>
+      </section>
+    </script>
+
+    <!-- Handlebars books template -->
+    <script id="books-template" type="text/x-handlebars-template">
+      <ul id="book-recs">
+        {{#each books}}
           <li>
-            <section class="page-section image-page-section">
-              <div class="image-section-content">
-                <h2>{{title}}</h2>
-                <!-- Placeholder for subcategories -->
-                <div id="subcategories-{{id}}-list"></div>
-              </div>
-              <a href="category.html?id={{id}}&title={{title}}">
-                <img
-                  class="image-section-img"
-                  src="{{img_url}}"
-                  alt="{{title}}"
-                />
-              </a>
-            </section>
+            <img src="{{image}}" alt="{{title}}" />
+            <div class="recommendation-content">
+              <h3>{{title}}</h3>
+              <p><strong>By:</strong> {{author}}</p>
+              <p><strong>Publisher:</strong> {{publisher}}</p>
+              <p><strong>Publication Date:</strong> {{publicationDate}}</p>
+              <p><strong>Price:</strong> {{cost}} €</p>
+              <p>{{description}}</p>
+              <a href="{{link}}" class="btn" target="_blank">More about this book!</a>
+            </div>
           </li>
         {{/each}}
       </ul>
     </script>
 
-    <!-- Handlebars subcategories template -->
-    <script id="subcategories-template" type="text/x-handlebars-template">
-      <ul>
-        {{#each subcategories}}
+    <!-- Handlebars lectures template -->
+    <script id="lectures-template" type="text/x-handlebars-template">
+      <ul id="lecture-recs">
+        {{#each lectures}}
           <li>
-            <a href="subcategory.html?id={{id}}">
-              {{title}}
-            </a>
+            <img src="{{image}}" alt="{{title}}" />
+            <div class="recommendation-content">
+              <h3>{{title}}</h3>
+              <p><strong>Price:</strong> {{cost}} €</p>
+              <p>{{description}}</p>
+              <a href="{{link}}" class="btn" target="_blank">Watch this lecture!</a>
+            </div>
           </li>
         {{/each}}
       </ul>
     </script>
 
-    <script src="resources/js/index-hbs.js"></script>
+    <script src="resources/js/category-hbs.js"></script>
 
     <link rel="stylesheet" href="resources/css/styles.css" />
     <link href="resources/icons/favicon.jpeg" rel="icon" />
@@ -80,18 +87,21 @@
       </header>
 
       <main>
-        <!-- Intro Section -->
-        <section class="intro">
-          <h1>Welcome to the LearningHub!</h1>
-          <p>
-            Everything you need to know about coding and computer science is
-            here.
-          </p>
-          <a href="#categories" class="btn"> Start Learning </a>
+        <div id="category-title"></div>
+
+        <!-- Book recommendations -->
+        <section class="page-section">
+          <h2>Recommended Books</h2>
+          <!-- Placeholder for books -->
+          <div id="books-list"></div>
         </section>
 
-        <!-- Placeholder for categories -->
-        <div id="categories-list"></div>
+        <!-- Video recommendations -->
+        <section class="page-section">
+          <h2>Recommended Lectures</h2>
+          <!-- Placeholder for lectures -->
+          <div id="lectures-list"></div>
+        </section>
       </main>
 
       <footer>

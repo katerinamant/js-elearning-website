@@ -367,6 +367,97 @@ main .categories {
 }
 
 /* ===================================================
+        CATEGORY PAGE STYLING
+        ================================================== */
+
+/*
+  Flex container for each individual recommendations.
+  It contains two elements: the image and a div of "recommendation-content".
+*/
+main .page-section #book-recs,
+main .page-section #lecture-recs {
+  padding: 0;
+}
+
+main .page-section #book-recs li,
+main .page-section #lecture-recs li {
+  display: flex;
+  align-items: flex-start; /* Align items at the top */
+  gap: 1rem; /* Space between image and text */
+  padding: var(--padding-small) 0;
+  border-bottom: 1px solid var(--blue-color); /* Add a small blue line separating the recommendations */
+}
+
+/* Remove the bottom border from the last item in the list */
+main .page-section #book-recs li:last-child,
+main .page-section #lecture-recs li:last-child {
+  border-bottom: none;
+}
+
+/* Images in book and video recommendations */
+main .page-section #book-recs li img,
+main .page-section #lecture-recs li img {
+  width: 12rem; /* Set a consistent image width */
+  height: auto;
+  border-radius: var(--border-radius-small); /* Rounded corners for images */
+}
+
+main .page-section #book-recs li .recommendation-content,
+main .page-section #lecture-recs li .recommendation-content {
+  flex: 1; /* Allow text to expand and fill the remaining space */
+  margin-top: 0.5%;
+}
+
+/* Styling for the book/lecture name */
+main .page-section #book-recs li .recommendation-content h3,
+main .page-section #lecture-recs li .recommendation-content h3 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 var(--padding-small) 0;
+}
+
+/* Buttons in the recommendations sections */
+main .page-section #book-recs li .recommendation-content .btn,
+main .page-section #lecture-recs li .recommendation-content .btn {
+  display: inline-block;
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
+  text-align: center;
+  text-decoration: none; /* Remove underline */
+  border-radius: 0.313rem;
+  padding: var(--padding-small) var(--padding-medium);
+  margin-top: var(--padding-small);
+  transition: background-color 0.3s; /* Smooth transition on hover effect */
+}
+
+/* Change button appearance on hover. */
+main .page-section #book-recs li .recommendation-content .btn:hover,
+main .page-section #lecture-recs li .recommendation-content .btn:hover {
+  background-color: var(--dark-green-color); /* Dark green background on hover */
+  color: var(--white-color); /* White text on hover */
+}
+
+/* Adjustments for small screens */
+@media only screen and (max-width: 768px) {
+  main .page-section #book-recs li,
+  main .page-section #lecture-recs li {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+  }
+
+  main .page-section #book-recs li .recommendation-content,
+  main .page-section #lecture-recs li .recommendation-content {
+    word-wrap: break-word;
+  }
+
+  /* Ensure content spacing looks good */
+  main .page-section #book-recs li .recommendation-content,
+  main .page-section #lecture-recs li .recommendation-content {
+    margin-top: 0; /* Reset top margin */
+  }
+}
+
+/* ===================================================
         ABOUT PAGE STYLING
         ================================================== */
 
