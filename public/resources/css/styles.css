@@ -334,8 +334,13 @@ main .image-page-section {
   }
 }
 
-main .image-page-section .image-section-img {
+main .image-page-section a .image-section-img {
   width: 12rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+main .image-page-section a .image-section-img:hover {
+  transform: scale(1.05); /* Slightly zoom in */
 }
 
 /* Inner flex container for the header and the text */

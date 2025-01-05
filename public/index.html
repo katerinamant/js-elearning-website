@@ -3,9 +3,44 @@
 
 <head>
     <title>LearningHub</title>
-    
-    <!-- Load th Handlebars library-->
+
+    <!-- Load the Handlebars library-->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+    <!-- Handlebars categories template -->
+    <script id="categories-template" type="text/x-handlebars-template">
+        <ul class="categories" id="categories">
+            {{#each categories}}
+            <li>
+                <section class="page-section image-page-section">
+                    <div class="image-section-content">
+                        <h2>{{title}}</h2>
+                        <!-- Placeholder for subcategories -->
+                        <div id="subcategories-{{id}}-list"></div>
+                    </div>
+                    <a href="category.html?id={{id}}">
+                        <img class="image-section-img" src="{{img_url}}" alt="{{title}}">
+                    </a>
+                </section>
+            </li>
+            {{/each}}
+        </ul>
+    </script>
+
+    <!-- Handlebars subcategories template -->
+    <script id="subcategories-template" type="text/x-handlebars-template">
+        <ul>
+          {{#each subcategories}}
+            <li>
+              <a href="subcategory.html?id={{id}}">
+                {{title}}
+              </a>
+            </li>
+          {{/each}}
+        </ul>
+      </script>
+
+    <script src="resources/js/index-hbs.js"></script>
 
     <link rel="stylesheet" href="resources/css/styles.css">
     <link href="resources/icons/favicon.jpeg" rel="icon" />
@@ -54,114 +89,9 @@
                 </a>
             </section>
 
-            <!-- Categories Section -->
-            <ul class="categories" id="categories">
-                <li>
-                    <section class="page-section image-page-section" name="Web Design">
-                        <div class="image-section-content">
-                            <h2>Web Design</h2>
-                            <ul id="subactegories">
-                                <li>
-                                    <a id="subcategory-link" href="#" title="html_intro">
-                                        Introduction
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="html_web_design">
-                                        HTML
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="html_css">
-                                        CSS
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <img class="image-section-img" src="resources/categories/web-design.png">
-                    </section>
-                </li>
-                <li>
-                    <section class="page-section image-page-section" name="Python">
-                        <div class="image-section-content">
-                            <h2>Python</h2>
-                            <ul id="subactegories">
-                                <li>
-                                    <a id="subcategory-link" href="#" title="python_intro">
-                                        Introduction
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="python_data">
-                                        Variables and Data Types
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="python_control">
-                                        Control Structures
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="python_functions">
-                                        Functions
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <img class="image-section-img" src="resources/categories/python.png">
-                    </section>
-                </li>
-                <li>
-                    <section class="page-section image-page-section" name="Artificial Intelligence">
-                        <div class="image-section-content">
-                            <h2>Artificial Intelligence</h2>
-                            <ul id="subactegories">
-                                <li>
-                                    <a id="subcategory-link" href="#" title="ai_intro">
-                                        Introduction
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="ai_ml">
-                                        Machine Learning
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="ai_gpts">
-                                        What are GPTs?
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <img class="image-section-img" src="resources/categories/ai.png">
-                    </section>
-                </li>
-                <li>
-                    <section class="page-section image-page-section" name="The Cloud">
-                        <div class="image-section-content">
-                            <h2>The Cloud</h2>
-                            <ul id="subactegories">
-                                <li>
-                                    <a id="subcategory-link" href="#" title="cloud_intro">
-                                        Introduction
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="cloud_how_it_works">
-                                        How it works
-                                    </a>
-                                </li>
-                                <li>
-                                    <a id="subcategory-link" href="#" title="cloud_providers">
-                                        Cloud Providers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <img class="image-section-img" src="resources/categories/cloud.png">
-                    </section>
-                </li>
-            </ul>
+            <!-- Placeholder for categories -->
+            <div id="categories-list"></div>
+
         </main>
 
         <footer>
