@@ -385,7 +385,7 @@ main .page-section #lecture-recs li {
   align-items: flex-start; /* Align items at the top */
   gap: 1rem; /* Space between image and text */
   padding: var(--padding-small) 0;
-  border-bottom: 1px solid var(--blue-color); /* Add a small blue line separating the recommendations */
+  border-bottom: 0.063rem solid var(--blue-color); /* Add a small blue line separating the recommendations */
 }
 
 /* Remove the bottom border from the last item in the list */
@@ -472,7 +472,7 @@ main .page-section #lecture-recs li .recommendation-content .features-table {
   width: 100%; /* Expands to take up the section */
   border-collapse: collapse;
   margin: 0 auto;
-  border: 1px solid var(--light-blue-color); /* Light blue border */
+  border: 0.063rem solid var(--light-blue-color); /* Light blue border */
 }
 
 /* Table headers */
@@ -483,14 +483,14 @@ main .page-section #lecture-recs li .recommendation-content .features-table th {
   padding: 0.8rem;
   text-align: left;
   font-weight: bold;
-  border-bottom: 2px solid var(--blue-color); /* Thicker dark line separating the header and the cells */
+  border-bottom: 0.125rem solid var(--blue-color); /* Thicker dark line separating the header and the cells */
 }
 
 /* Table cells */
 main .page-section #book-recs li .recommendation-content .features-table td,
 main .page-section #lecture-recs li .recommendation-content .features-table td {
   padding: 0.8rem;
-  border-bottom: 1px solid var(--light-blue-color);
+  border-bottom: 0.063rem solid var(--light-blue-color);
 }
 
 /* Slightly smaller padding for small screens */
