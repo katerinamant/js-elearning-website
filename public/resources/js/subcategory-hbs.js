@@ -14,20 +14,15 @@ window.addEventListener("DOMContentLoaded", async () => {
   console.log("DOM fully loaded. Fetching items...");
 
   const params = new URLSearchParams(window.location.search);
-  // Get the category ID from the URL
-  const categoryId = params.get("id");
-
   // Get the category title from the URL
-  const categoryTitle = params.get("title");
+  // It is used in the title of the page.
+  const categoryTitle = params.get("categoryTitle");
 
-  if (!categoryId) {
-    showError(
-      "No category ID provided in the URL.",
-      "Error loading content. Please provide a category ID!"
-    );
-    return;
-  }
-  console.log(`Received category id=${categoryId}`);
+  // Get the subcategory ID from the URL
+  const subcategoryId = params.get("id");
+
+  // Get the subcategory title from the URL
+  const subcategoryTitle = params.get("title");
 
   if (!categoryTitle) {
     showError(
@@ -37,12 +32,28 @@ window.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  if (!subcategoryId) {
+    showError(
+      "No subcategory ID provided in the URL.",
+      "Error loading content. Please provide a subcategory ID!"
+    );
+    return;
+  }
+
+  if (!subcategoryTitle) {
+    showError(
+      "No subcategory title provided in the URL.",
+      "Error loading content. Please provide a subcategory title!"
+    );
+    return;
+  }
+
   try {
-    // Render category title
-    renderTitle(categoryTitle);
+    // Render subcategory title
+    renderTitle(categoryTitle, subcategoryTitle);
 
     // Fetch learning items
-    const items = await fetchItems(categoryId);
+    const items = await fetchItems(subcategoryId);
 
     // Render items
     renderItems(items);
@@ -55,31 +66,31 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-// Function to render the category title
-function renderTitle(categoryTitle) {
+// Function to render the subcategory title
+function renderTitle(categoryTitle, subcategoryTitle) {
   console.log("Rendering title...");
 
   // Get the Handlebars template from the HTML
-  const titleScript = document.querySelector("#category-title-template");
+  const titleScript = document.querySelector("#subcategory-title-template");
 
   // Compile the template
   const template = Handlebars.compile(titleScript.textContent);
   console.log("Title template compiled successfully.");
 
-  // Render the template with the category title
-  const titleContent = template({ title: categoryTitle });
+  // Render the template with the subcategory title
+  const titleContent = template({categoryTitle: categoryTitle, subcategoryTitle: subcategoryTitle });
 
   // Inject the rendered HTML into the placeholder div
-  document.querySelector("#category-title").innerHTML = titleContent;
+  document.querySelector("#subcategory-title").innerHTML = titleContent;
   console.log("Title rendered successfully.");
 }
 
 // Function to fetch the learning items
-async function fetchItems(categoryId) {
+async function fetchItems(subcategoryId) {
   console.log("Sending GET request to fetch items...");
 
   const response = await fetch(
-    `${website}/learning-items?category=${categoryId}`
+    `${website}/learning-items?subcategory=${subcategoryId}`
   );
 
   // Check if the response is not successful
@@ -111,6 +122,9 @@ function renderItems(items) {
 
   // Render lectures
   renderLectures(lectures);
+
+  // Render the features table for each item
+  renderFeatures(items);
 }
 
 // Function to render books
@@ -163,4 +177,37 @@ function renderLectures(lectures) {
   // Inject the rendered HTML into the placeholder div
   document.querySelector("#lectures-list").innerHTML = lecturesContent;
   console.log("Lectures rendered successfully.");
+}
+
+// Function to render the feature table
+function renderFeatures(items) {
+  // Get the Handlebars template from the HTML
+  const featuresScript = document.querySelector("#features-template");
+
+  // Compile the template
+  const template = Handlebars.compile(featuresScript.textContent);
+  console.log("Features table template compiled successfully.");
+
+  items.forEach((item) => {
+    // Parse the features string for each item
+    item.features = parseFeatures(item.features);
+
+    // Render the features table using Handlebars
+    const featuresContent = template({ features: item.features });
+
+    // Inject the table into the corresponding item's div
+    document.querySelector(`#features-${item.id}`).innerHTML = featuresContent;
+  });
+}
+
+// Function to parse the features string from the response
+function parseFeatures(features) {
+  // Split by semicolons to get individual features
+  const featuresArray = features.split(";");
+
+  // Convert each feature into a key-value pair
+  return featuresArray.map((feature) => {
+    const [key, value] = feature.split(":");
+    return { key: key.trim(), value: value.trim() };
+  });
 }

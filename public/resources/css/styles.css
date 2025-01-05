@@ -433,7 +433,9 @@ main .page-section #lecture-recs li .recommendation-content .btn {
 /* Change button appearance on hover. */
 main .page-section #book-recs li .recommendation-content .btn:hover,
 main .page-section #lecture-recs li .recommendation-content .btn:hover {
-  background-color: var(--dark-green-color); /* Dark green background on hover */
+  background-color: var(
+    --dark-green-color
+  ); /* Dark green background on hover */
   color: var(--white-color); /* White text on hover */
 }
 
@@ -454,6 +456,50 @@ main .page-section #lecture-recs li .recommendation-content .btn:hover {
   main .page-section #book-recs li .recommendation-content,
   main .page-section #lecture-recs li .recommendation-content {
     margin-top: 0; /* Reset top margin */
+  }
+}
+
+/* ===================================================
+        SUBCATEGORY PAGE STYLING
+        ================================================== *
+/* It uses all the stylings of the category page,
+  with additional settings for the features table
+*/
+
+/* Features table */
+main .page-section #book-recs li .recommendation-content .features-table,
+main .page-section #lecture-recs li .recommendation-content .features-table {
+  width: 100%; /* Expands to take up the section */
+  border-collapse: collapse;
+  margin: 0 auto;
+  border: 1px solid var(--light-blue-color); /* Light blue border */
+}
+
+/* Table headers */
+main .page-section #book-recs li .recommendation-content .features-table th,
+main .page-section #lecture-recs li .recommendation-content .features-table th {
+  background-color: var(--light-blue-color); /* Light blue background for the header */
+  color: var(--blue-color); /* Darker blue text */
+  padding: 0.8rem;
+  text-align: left;
+  font-weight: bold;
+  border-bottom: 2px solid var(--blue-color); /* Thicker dark line separating the header and the cells */
+}
+
+/* Table cells */
+main .page-section #book-recs li .recommendation-content .features-table td,
+main .page-section #lecture-recs li .recommendation-content .features-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid var(--light-blue-color);
+}
+
+/* Slightly smaller padding for small screens */
+@media only screen and (max-width: 768px) {
+  main .page-section #book-recs li .recommendation-content .features-table th,
+  main .page-section #book-recs li .recommendation-content .features-table td,
+  main .page-section #lecture-recs li .recommendation-content .features-table th,
+  main .page-section #lecture-recs li .recommendation-content .features-table td {
+    padding: 0.5rem;
   }
 }
 

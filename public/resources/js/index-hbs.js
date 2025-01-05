@@ -74,7 +74,7 @@ function renderCategories(categories) {
 async function fetchAndRenderSubcategories(categories) {
   for (const category of categories) {
     const subcategories = await fetchSubcategories(category.id);
-    renderSubcategories(category.id, subcategories);
+    renderSubcategories(category.id, category.title, subcategories);
   }
 }
 
@@ -109,7 +109,7 @@ async function fetchSubcategories(categoryId) {
 }
 
 // Function to render subcategories using Handlebars
-function renderSubcategories(categoryId, subcategories) {
+function renderSubcategories(categoryId, categoryTitle, subcategories) {
   console.log(`Rendering subcategories for category ID: ${categoryId}...`);
 
   // Get the Handlebars template from the HTML
@@ -122,7 +122,9 @@ function renderSubcategories(categoryId, subcategories) {
   );
 
   // Render the template with the fetched subcategories
-  const subcategoriesContent = template({ subcategories: subcategories });
+  // We are passing the category title as well
+  // to use it in the header of the subcategory page
+  const subcategoriesContent = template({ subcategories: subcategories, categoryTitle: categoryTitle });
 
   // Inject the rendered HTML into the placeholder div
   document.querySelector(`#subcategories-${categoryId}-list`).innerHTML =
