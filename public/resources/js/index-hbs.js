@@ -9,7 +9,6 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     // Fetch and render subcategories for each category
     await fetchAndRenderSubcategories(categories);
-
   } catch (error) {
     console.error("An error occured:", error);
 
@@ -45,7 +44,7 @@ async function fetchCategories() {
   console.log("Categories data received:", categories);
 
   // Fix image url for the categories
-  categories.forEach(category => {
+  categories.forEach((category) => {
     category.img_url = `${website}/${category.img_url}`;
   });
 
@@ -84,7 +83,9 @@ async function fetchSubcategories(categoryId) {
   try {
     console.log(`Fetching subcategories for category ID: ${categoryId}`);
 
-    const response = await fetch(`${website}/categories/${categoryId}/subcategories`);
+    const response = await fetch(
+      `${website}/categories/${categoryId}/subcategories`
+    );
 
     // Check if the response is not successful
     if (!response.ok) {
@@ -96,12 +97,13 @@ async function fetchSubcategories(categoryId) {
     const subcategories = await response.json();
     console.log("Subcategories data received:", subcategories);
     return subcategories;
-
   } catch (error) {
     // We use a separate catch here.
     // That way the rest of the categories
     // with their subcategories will still work.
-    console.error(`Error fetching subcategories for category ID ${categoryId}: ${error}`);
+    console.error(
+      `Error fetching subcategories for category ID ${categoryId}: ${error}`
+    );
     return [];
   }
 }
@@ -115,12 +117,17 @@ function renderSubcategories(categoryId, subcategories) {
 
   // Compile the template
   const template = Handlebars.compile(subcategoriesScript.textContent);
-  console.log(`Subcategories template for category ID: ${categoryId} compiled successfully.`);
+  console.log(
+    `Subcategories template for category ID: ${categoryId} compiled successfully.`
+  );
 
   // Render the template with the fetched subcategories
   const subcategoriesContent = template({ subcategories: subcategories });
 
   // Inject the rendered HTML into the placeholder div
-  document.querySelector(`#subcategories-${categoryId}-list`).innerHTML = subcategoriesContent;
-  console.log(`Subcategories rendered successfully for category ID: ${categoryId}`);
+  document.querySelector(`#subcategories-${categoryId}-list`).innerHTML =
+    subcategoriesContent;
+  console.log(
+    `Subcategories rendered successfully for category ID: ${categoryId}`
+  );
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-
-<head>
+  <head>
     <title>LearningHub</title>
 
     <!-- Load the Handlebars library-->
@@ -9,125 +8,136 @@
 
     <!-- Handlebars categories template -->
     <script id="categories-template" type="text/x-handlebars-template">
-        <ul class="categories" id="categories">
-            {{#each categories}}
-            <li>
-                <section class="page-section image-page-section">
-                    <div class="image-section-content">
-                        <h2>{{title}}</h2>
-                        <!-- Placeholder for subcategories -->
-                        <div id="subcategories-{{id}}-list"></div>
-                    </div>
-                    <a href="category.html?id={{id}}">
-                        <img class="image-section-img" src="{{img_url}}" alt="{{title}}">
-                    </a>
-                </section>
-            </li>
-            {{/each}}
-        </ul>
+      <ul class="categories" id="categories">
+        {{#each categories}}
+          <li>
+            <section class="page-section image-page-section">
+              <div class="image-section-content">
+                <h2>{{title}}</h2>
+                <!-- Placeholder for subcategories -->
+                <div id="subcategories-{{id}}-list"></div>
+              </div>
+              <a href="category.html?id={{id}}">
+                <img
+                  class="image-section-img"
+                  src="{{img_url}}"
+                  alt="{{title}}"
+                />
+              </a>
+            </section>
+          </li>
+        {{/each}}
+      </ul>
     </script>
 
     <!-- Handlebars subcategories template -->
     <script id="subcategories-template" type="text/x-handlebars-template">
-        <ul>
-          {{#each subcategories}}
-            <li>
-              <a href="subcategory.html?id={{id}}">
-                {{title}}
-              </a>
-            </li>
-          {{/each}}
-        </ul>
-      </script>
+      <ul>
+        {{#each subcategories}}
+          <li>
+            <a href="subcategory.html?id={{id}}">
+              {{title}}
+            </a>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
 
     <script src="resources/js/index-hbs.js"></script>
 
-    <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet" href="resources/css/styles.css" />
     <link href="resources/icons/favicon.jpeg" rel="icon" />
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Computer science e-learning platform.">
-    <meta name="author" content="Katerina Mantaraki, Alex Papadopoulos">
-</head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Computer science e-learning platform." />
+    <meta name="author" content="Katerina Mantaraki, Alex Papadopoulos" />
+  </head>
 
-<body>
+  <body>
     <div class="grid-with-no-aside">
-        <header>
-            <nav>
-                <a href="index.html">
-                    <img src="resources/logo/learninghub_logo-no-bg.png" alt="LearningHub">
-                </a>
+      <header>
+        <nav>
+          <a href="index.html">
+            <img
+              src="resources/logo/learninghub_logo-no-bg.png"
+              alt="LearningHub"
+            />
+          </a>
 
-                <ul>
-                    <li>
-                        <a href="index.html">
-                            Home
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Course Categories
-                        </a>
-                    </li>
-                    <li>
-                        <a href="about.html">
-                            About Us
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
+          <ul>
+            <li>
+              <a href="index.html"> Home </a>
+            </li>
+            <li>
+              <a href="#"> Course Categories </a>
+            </li>
+            <li>
+              <a href="about.html"> About Us </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-        <main>
-            <!-- Intro Section -->
-            <section class="intro">
-                <h1>Welcome to the LearningHub!</h1>
-                <p>Everything you need to know about coding and computer science is here.</p>
-                <a href="#categories" class="btn">
-                    Start Learning
-                </a>
-            </section>
+      <main>
+        <!-- Intro Section -->
+        <section class="intro">
+          <h1>Welcome to the LearningHub!</h1>
+          <p>
+            Everything you need to know about coding and computer science is
+            here.
+          </p>
+          <a href="#categories" class="btn"> Start Learning </a>
+        </section>
 
-            <!-- Placeholder for categories -->
-            <div id="categories-list"></div>
+        <!-- Placeholder for categories -->
+        <div id="categories-list"></div>
+      </main>
 
-        </main>
-
-        <footer>
-            <div class="footer-column">
-                <h2>More Information</h2>
-                <ul class="menu">
-                    <li><a href="about.html" title="about_us_redirect">About Us</a></li>
-                    <li><a href="https://github.com/katerinamant/js-elearning-website" title="repo">How We Did It</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h2>Contact Us</h2>
-                <ul class="menu">
-                    <li>
-                        <a href="https://www.linkedin.com/in/katerinamant" title="linkedin_katerina">
-                            <img src="resources/icons/linkedin-logo.png" alt="LinkedIn">
-                            Katerina Mantaraki
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.linkedin.com/in/alexiospap" title="linkedin_alex">
-                            <img src="resources/icons/linkedin-logo.png" alt="LinkedIn">
-                            Alexios Papadopoulos
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div id="copyright-disclaimer">
-                <p>
-                    © Katerina Mantaraki, Alexios Papadopoulos<br>
-                    Icons by <a href="https://icons8.com/">Icons8</a>
-                </p>
-            </div>
-        </footer>
+      <footer>
+        <div class="footer-column">
+          <h2>More Information</h2>
+          <ul class="menu">
+            <li><a href="about.html" title="about_us_redirect">About Us</a></li>
+            <li>
+              <a
+                href="https://github.com/katerinamant/js-elearning-website"
+                title="repo"
+                >How We Did It</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h2>Contact Us</h2>
+          <ul class="menu">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/katerinamant"
+                title="linkedin_katerina"
+              >
+                <img src="resources/icons/linkedin-logo.png" alt="LinkedIn" />
+                Katerina Mantaraki
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/alexiospap"
+                title="linkedin_alex"
+              >
+                <img src="resources/icons/linkedin-logo.png" alt="LinkedIn" />
+                Alexios Papadopoulos
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="copyright-disclaimer">
+          <p>
+            © Katerina Mantaraki, Alexios Papadopoulos<br />
+            Icons by <a href="https://icons8.com/">Icons8</a>
+          </p>
+        </div>
+      </footer>
     </div>
-
-</body>
-
+  </body>
 </html>
