@@ -26,9 +26,14 @@
               <p><strong>Publication Date:</strong> {{publicationDate}}</p>
               <p><strong>Price:</strong> {{cost}} €</p>
               <p>{{description}}</p>
-              <a href="{{link}}" class="btn" target="_blank">More about this
-                book!</a>
-            </div>
+
+              <button class="buy-btn"
+                  data-id="{{id}}"
+                  data-title="{{title}}"
+                  data-cost="{{cost}}"
+                  data-type="{{type}}">
+                Buy Now!
+              </button>
           </li>
         {{/each}}
       </ul>
@@ -44,8 +49,14 @@
               <h3>{{title}}</h3>
               <p><strong>Price:</strong> {{cost}} €</p>
               <p>{{description}}</p>
-              <a href="{{link}}" class="btn" target="_blank">Watch this lecture!</a>
-            </div>
+
+              <button class="buy-btn"
+                  data-id="{{id}}"
+                  data-title="{{title}}"
+                  data-cost="{{cost}}"
+                  data-type="{{type}}">
+                Buy Now!
+              </button>
           </li>
         {{/each}}
       </ul>
@@ -53,6 +64,8 @@
 
     <script src="resources/js/category-hbs.js"></script>
     <script src="resources/js/login-validation.js" defer></script>
+    <script src="resources/js/cart-management.js" defer></script>
+    <script src="resources/js/logout-management.js" defer></script>
 
     <link rel="stylesheet" href="resources/css/styles.css" />
     <link href="resources/icons/favicon.jpeg" rel="icon" />
@@ -111,8 +124,8 @@
 
         <!-- Welcome Message (hidden by default) -->
         <section id="welcome-section" style="display: none">
-            <p>Welcome back, <span id="logged-in-user"></span>!</p>
-            <button id="logout-btn" class="btn">Logout</button>
+          <p>Welcome back, <span id="logged-in-user"></span>!</p>
+          <button id="logout-btn" class="btn">Logout</button>
         </section>
 
         <div id="category-title"></div>

@@ -546,22 +546,25 @@ main .page-section #lecture-recs li .recommendation-content h3 {
 }
 
 /* Buttons in the recommendations sections */
-main .page-section #book-recs li .recommendation-content .btn,
-main .page-section #lecture-recs li .recommendation-content .btn {
+main .page-section #book-recs li .recommendation-content .buy-btn,
+main .page-section #lecture-recs li .recommendation-content .buy-btn {
   display: inline-block;
   background-color: var(--blue-color); /* Blue background */
   color: var(--white-color); /* White text */
+  font: inherit;
   text-align: center;
   text-decoration: none; /* Remove underline */
   border-radius: 0.313rem;
+  border: none;
   padding: var(--padding-small) var(--padding-medium);
   margin-top: var(--padding-small);
   transition: background-color 0.3s; /* Smooth transition on hover effect */
+  cursor: pointer;
 }
 
 /* Change button appearance on hover. */
-main .page-section #book-recs li .recommendation-content .btn:hover,
-main .page-section #lecture-recs li .recommendation-content .btn:hover {
+main .page-section #book-recs li .recommendation-content .buy-btn:hover,
+main .page-section #lecture-recs li .recommendation-content .buy-btn:hover {
   background-color: var(
     --dark-green-color
   ); /* Dark green background on hover */

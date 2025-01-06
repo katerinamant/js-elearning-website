@@ -3,6 +3,23 @@ const form = document.getElementById("login-form");
 const usernameField = document.getElementById("username");
 const passwordField = document.getElementById("password");
 
+// First check if sessionId still exists in the browser
+document.addEventListener("DOMContentLoaded", () => {
+  const sessionId = localStorage.getItem("sessionId");
+  const username = localStorage.getItem("username");
+
+  if (sessionId && username) {
+    // User is logged in, show welcome section
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("welcome-section").style.display = "block";
+    document.getElementById("logged-in-user").textContent = username;
+  } else {
+    // No valid session, show login section
+    document.getElementById("login-section").style.display = "block";
+    document.getElementById("welcome-section").style.display = "none";
+  }
+});
+
 // Validate username
 function validateUsername() {
   // Check for empty input
@@ -68,8 +85,9 @@ async function authenticateUser(username, password) {
     // Show success message
     showLoginMessage("Login successful!", "success");
 
-    // store the session ID
+    // Store the session ID and the username
     localStorage.setItem("sessionId", data.sessionId);
+    localStorage.setItem("username", username);
 
     // Show the welcome message
     showWelcomeMessage(username);
@@ -82,6 +100,7 @@ async function authenticateUser(username, password) {
   }
 }
 
+// Function to replace the Login form with a welcome message
 function showWelcomeMessage(username) {
   // Get elements
   const loginSection = document.querySelector("#login-section");
@@ -96,20 +115,10 @@ function showWelcomeMessage(username) {
   welcomeSection.style.display = "block";
 }
 
+// Function to show a message under the Login form
 function showLoginMessage(message, type) {
   const messageElement = document.querySelector("#login-message");
   messageElement.style.display = "block";
   messageElement.textContent = message;
   messageElement.style.backgroundColor = type === "success" ? "green" : "red";
 }
-
-// Function to "reset" the page when the user logs out
-document.querySelector("#logout-btn").addEventListener("click", () => {
-  // Clear session data
-  localStorage.removeItem("sessionId");
-
-  // Show the login form and hide the login message and the welcome section
-  document.querySelector("#login-section").style.display = "block";
-  document.querySelector("#login-message").style.display = "none";
-  document.querySelector("#welcome-section").style.display = "none";
-});
