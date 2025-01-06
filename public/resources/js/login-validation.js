@@ -34,9 +34,9 @@ form.addEventListener("submit", async (event) => {
   // Perform validation
   validateUsername();
 
-  // If the form is invalid, prevent submission
   if (!form.checkValidity()) {
-    event.stopPropagation();
+    // Return on invalid form
+    return;
   } else {
     // If the form is valid, authenticate user
     const username = usernameField.value;
@@ -48,11 +48,15 @@ form.addEventListener("submit", async (event) => {
 
 async function authenticateUser(username, password) {
   try {
-    const response = await fetch(`${website}/login`, {
+    let options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+      body: JSON.stringify({ username: username, password: password }),
+    };
+    console.log("Sending request to server:", options);
+
+    const response = await fetch("http://localhost:3000/login", options);
+    console.log("Received response:", response);
 
     if (!response.ok) {
       throw new Error(`Login failed. Status: ${response.status}`);
@@ -64,11 +68,11 @@ async function authenticateUser(username, password) {
     // Show success message
     showLoginMessage("Login successful!", "success");
 
-    // Optionally, store the session ID (for demonstration purposes)
+    // store the session ID
     localStorage.setItem("sessionId", data.sessionId);
 
-    // Hide the login form or update the UI
-    document.querySelector("#login-form").style.display = "none";
+    // Show the welcome message
+    showWelcomeMessage(username);
   } catch (error) {
     console.error("Error during login:", error);
     showLoginMessage(
@@ -78,8 +82,34 @@ async function authenticateUser(username, password) {
   }
 }
 
+function showWelcomeMessage(username) {
+  // Get elements
+  const loginForm = document.querySelector("#login-form");
+  const welcomeMessage = document.querySelector("#welcome-section");
+  const loggedInUser = document.querySelector("#logged-in-user");
+
+  // Set the username in the welcome message
+  loggedInUser.textContent = username;
+
+  // Hide the login section and show the welcome section
+  loginForm.style.display = "none";
+  welcomeMessage.style.display = "block";
+}
+
 function showLoginMessage(message, type) {
   const messageElement = document.querySelector("#login-message");
+  messageElement.style.display = "block";
   messageElement.textContent = message;
   messageElement.style.backgroundColor = type === "success" ? "green" : "red";
 }
+
+// Function to "reset" the page when the user logs out
+document.querySelector("#logout-btn").addEventListener("click", () => {
+  // Clear session data
+  localStorage.removeItem("sessionId");
+
+  // Show the login form and hide the welcome message
+  document.querySelector("#login-form").style.display = "block";
+  document.querySelector("#login-message").style.display = "none";
+  document.querySelector("#welcome-section").style.display = "none";
+});

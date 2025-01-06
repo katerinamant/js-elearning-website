@@ -209,7 +209,9 @@ header nav ul li #login #login-form button {
 
 /* Hover effect for the login button */
 header nav ul li #login #login-form button:hover {
-  background-color: var(--dark-green-color); /* Dark green background  on hover */
+  background-color: var(
+    --dark-green-color
+  ); /* Dark green background  on hover */
   color: var(--white-color); /* White text on hover */
 }
 
@@ -222,6 +224,38 @@ header nav ul li #login #login-form #login-message {
   display: inline-block;
 }
 
+/*
+        A container with a welcome message
+        to the user and a logout button.
+        It is hidden by default and turned on
+        with a successful login.
+    */
+header nav ul li #welcome-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--light-blue-color); /* Light blue background */
+  padding: 10px 15px;
+  border-radius: var(--border-radius-medium);
+  color: var(--blue-color); /* Blue text */
+  font-size: var(--font-size-normal);
+}
+
+/* Logout button styling */
+header nav ul li #welcome-message #logout-btn {
+  padding: 5px 10px;
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Change background on hover */
+header nav ul li #welcome-message #logout-btn:hover {
+  background-color: var(--dark-green-color);
+}
 
 /* Adjustments for small screens */
 @media only screen and (max-width: 768px) {
@@ -521,7 +555,9 @@ main .page-section #lecture-recs li .recommendation-content .features-table {
 /* Table headers */
 main .page-section #book-recs li .recommendation-content .features-table th,
 main .page-section #lecture-recs li .recommendation-content .features-table th {
-  background-color: var(--light-blue-color); /* Light blue background for the header */
+  background-color: var(
+    --light-blue-color
+  ); /* Light blue background for the header */
   color: var(--blue-color); /* Darker blue text */
   padding: 0.8rem;
   text-align: left;
@@ -540,8 +576,20 @@ main .page-section #lecture-recs li .recommendation-content .features-table td {
 @media only screen and (max-width: 768px) {
   main .page-section #book-recs li .recommendation-content .features-table th,
   main .page-section #book-recs li .recommendation-content .features-table td,
-  main .page-section #lecture-recs li .recommendation-content .features-table th,
-  main .page-section #lecture-recs li .recommendation-content .features-table td {
+  main
+    .page-section
+    #lecture-recs
+    li
+    .recommendation-content
+    .features-table
+    th,
+  main
+    .page-section
+    #lecture-recs
+    li
+    .recommendation-content
+    .features-table
+    td {
     padding: 0.5rem;
   }
 }

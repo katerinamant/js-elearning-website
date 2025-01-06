@@ -100,9 +100,17 @@
                     required
                   />
                   <button type="submit" id="login-btn">Login</button>
-                  <br>
+                  <br />
                   <p id="login-message"></p>
                 </form>
+              </div>
+            </li>
+
+            <!-- Welcome Message (Hidden by default) -->
+            <li id="welcome-section" style="display: none">
+              <div id="welcome-message">
+                <p>Welcome, <span id="logged-in-user"></span>!</p>
+                <button id="logout-btn" class="btn">Logout</button>
               </div>
             </li>
           </ul>
