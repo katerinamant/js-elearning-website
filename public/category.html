@@ -81,43 +81,40 @@
             <li>
               <a href="about.html"> About Us </a>
             </li>
-            <!-- Login Form -->
-            <li>
-              <!-- Login Form Container -->
-              <div id="login">
-                <form id="login-form">
-                  <a>Login</a>
-                  <input
-                    type="text"
-                    id="username"
-                    placeholder="Username"
-                    required
-                  />
-                  <input
-                    type="password"
-                    id="password"
-                    placeholder="Password"
-                    required
-                  />
-                  <button type="submit" id="login-btn">Login</button>
-                  <br />
-                  <p id="login-message"></p>
-                </form>
-              </div>
-            </li>
-
-            <!-- Welcome Message (Hidden by default) -->
-            <li id="welcome-section" style="display: none">
-              <div id="welcome-message">
-                <p>Welcome, <span id="logged-in-user"></span>!</p>
-                <button id="logout-btn" class="btn">Logout</button>
-              </div>
-            </li>
           </ul>
         </nav>
       </header>
 
       <main>
+        <!-- Login Form Container -->
+        <section id="login-section">
+          <form id="login-form">
+            <p id="login-title">Login</p>
+            <div id="login-inputs">
+              <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                required
+              />
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+              />
+              <button type="submit" id="login-btn">Login</button>
+            </div>
+            <p id="login-message"></p>
+          </form>
+        </section>
+
+        <!-- Welcome Message (hidden by default) -->
+        <section id="welcome-section" style="display: none">
+            <p>Welcome back, <span id="logged-in-user"></span>!</p>
+            <button id="logout-btn" class="btn">Logout</button>
+        </section>
+
         <div id="category-title"></div>
 
         <!-- Book recommendations -->

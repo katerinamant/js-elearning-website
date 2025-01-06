@@ -84,16 +84,16 @@ async function authenticateUser(username, password) {
 
 function showWelcomeMessage(username) {
   // Get elements
-  const loginForm = document.querySelector("#login-form");
-  const welcomeMessage = document.querySelector("#welcome-section");
+  const loginSection = document.querySelector("#login-section");
+  const welcomeSection = document.querySelector("#welcome-section");
   const loggedInUser = document.querySelector("#logged-in-user");
 
   // Set the username in the welcome message
   loggedInUser.textContent = username;
 
   // Hide the login section and show the welcome section
-  loginForm.style.display = "none";
-  welcomeMessage.style.display = "block";
+  loginSection.style.display = "none";
+  welcomeSection.style.display = "block";
 }
 
 function showLoginMessage(message, type) {
@@ -108,8 +108,8 @@ document.querySelector("#logout-btn").addEventListener("click", () => {
   // Clear session data
   localStorage.removeItem("sessionId");
 
-  // Show the login form and hide the welcome message
-  document.querySelector("#login-form").style.display = "block";
+  // Show the login form and hide the login message and the welcome section
+  document.querySelector("#login-section").style.display = "block";
   document.querySelector("#login-message").style.display = "none";
   document.querySelector("#welcome-section").style.display = "none";
 });

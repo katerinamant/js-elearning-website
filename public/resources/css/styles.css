@@ -173,88 +173,11 @@ header nav ul li a::after {
 }
 
 /*
-        Triggers the hover animation.
-        The block element goes from 0 to width of li.
-    */
+            Triggers the hover animation.
+            The block element goes from 0 to width of li.
+        */
 header nav ul li a:hover::after {
   width: 100%;
-}
-
-/* Login container */
-header nav ul li #login {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-/* Login form elements */
-header nav ul li #login #login-form input {
-  padding: 5px;
-  border: 1px solid var(--light-blue-color); /* Light blue border */
-  border-radius: var(--border-radius-small);
-  font-size: 0.9rem;
-}
-
-/* "Login" form submission button */
-header nav ul li #login #login-form button {
-  padding: 5px 10px;
-  background-color: var(--white-color); /* White background */
-  color: var(--blue-color); /* Blue text */
-  border: none;
-  border-radius: var(--border-radius-small);
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out; /* Smooth transition on hover */
-}
-
-/* Hover effect for the login button */
-header nav ul li #login #login-form button:hover {
-  background-color: var(
-    --dark-green-color
-  ); /* Dark green background  on hover */
-  color: var(--white-color); /* White text on hover */
-}
-
-/* Login message styling */
-header nav ul li #login #login-form #login-message {
-  color: white;
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin-top: 10px;
-  display: inline-block;
-}
-
-/*
-        A container with a welcome message
-        to the user and a logout button.
-        It is hidden by default and turned on
-        with a successful login.
-    */
-header nav ul li #welcome-message {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background-color: var(--light-blue-color); /* Light blue background */
-  padding: 10px 15px;
-  border-radius: var(--border-radius-medium);
-  color: var(--blue-color); /* Blue text */
-  font-size: var(--font-size-normal);
-}
-
-/* Logout button styling */
-header nav ul li #welcome-message #logout-btn {
-  padding: 5px 10px;
-  background-color: var(--blue-color); /* Blue background */
-  color: var(--white-color); /* White text */
-  border: none;
-  border-radius: var(--border-radius-small);
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
-}
-
-/* Change background on hover */
-header nav ul li #welcome-message #logout-btn:hover {
-  background-color: var(--dark-green-color);
 }
 
 /* Adjustments for small screens */
@@ -441,6 +364,135 @@ main .categories {
   list-style-type: none; /* Remove default bullets */
   margin: 0;
   padding: 0;
+}
+
+/* ===================================================
+        LOGIN SECTION STYLING
+        ================================================== */
+/* Styling for the login container */
+main #login-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: var(--light-blue-color); /* Light blue background */
+  border-radius: var(--border-radius-medium);
+  margin: 20px auto;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Login form styling */
+main #login-section #login-form {
+  width: 100%;
+}
+
+/* Blue bold text for the "Login" title */
+main #login-section #login-form #login-title {
+  font-weight: bold;
+  font-size: var(--font-size-large);
+  color: var(--blue-color);
+  text-align: center;
+}
+
+/* Container for inputs and button */
+main #login-section #login-form #login-inputs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Username and password inputs */
+main #login-section #login-form #login-inputs input {
+  padding: 10px;
+  border: 1px solid var(--blue-color); /* Blue border */
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+  width: 150px; /* Fixed width for better alignment */
+}
+
+/* Login button styling */
+main #login-section #login-form #login-inputs button {
+  padding: 10px 15px;
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
+  border: none;
+  border-radius: var(--border-radius-small);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Dark green background on hover */
+main #login-section #login-form #login-inputs button:hover {
+  background-color: var(--dark-green-color);
+}
+
+/* Login message styling */
+main #login-section #login-form #login-message {
+  color: white; /* White text on green or blue background based on js form validation */
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+/*
+        A container with a welcome message
+        to the user and a logout button.
+        It is hidden by default and turned on
+        with a successful login.
+    */
+main #welcome-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  margin: 2%;
+  background-color: var(--light-blue-color); /* Light blue background */
+  color: var(--blue-color); /* Blue text */
+  border-radius: var(--border-radius-medium);
+}
+
+/* Welcome text */
+main #welcome-section p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+/* Logout button styling */
+main #welcome-section #logout-btn {
+  padding: 5px 10px;
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Dark green background on hover */
+main #welcome-section #logout-btn:hover {
+  background-color: var(--dark-green-color);
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 768px) {
+  main #login-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  main #welcome-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  main #login-section #login-form button,
+  main #welcome-section #logout-btn {
+    width: 100%;
+  }
 }
 
 /* ===================================================
