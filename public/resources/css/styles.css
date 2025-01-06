@@ -180,6 +180,49 @@ header nav ul li a:hover::after {
   width: 100%;
 }
 
+/* Login container */
+header nav ul li #login {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Login form elements */
+header nav ul li #login #login-form input {
+  padding: 5px;
+  border: 1px solid var(--light-blue-color); /* Light blue border */
+  border-radius: var(--border-radius-small);
+  font-size: 0.9rem;
+}
+
+/* "Login" form submission button */
+header nav ul li #login #login-form button {
+  padding: 5px 10px;
+  background-color: var(--white-color); /* White background */
+  color: var(--blue-color); /* Blue text */
+  border: none;
+  border-radius: var(--border-radius-small);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out; /* Smooth transition on hover */
+}
+
+/* Hover effect for the login button */
+header nav ul li #login #login-form button:hover {
+  background-color: var(--dark-green-color); /* Dark green background  on hover */
+  color: var(--white-color); /* White text on hover */
+}
+
+/* Login message styling */
+header nav ul li #login #login-form #login-message {
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: inline-block;
+}
+
+
 /* Adjustments for small screens */
 @media only screen and (max-width: 768px) {
   header nav {

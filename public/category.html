@@ -26,7 +26,8 @@
               <p><strong>Publication Date:</strong> {{publicationDate}}</p>
               <p><strong>Price:</strong> {{cost}} €</p>
               <p>{{description}}</p>
-              <a href="{{link}}" class="btn" target="_blank">More about this book!</a>
+              <a href="{{link}}" class="btn" target="_blank">More about this
+                book!</a>
             </div>
           </li>
         {{/each}}
@@ -51,6 +52,7 @@
     </script>
 
     <script src="resources/js/category-hbs.js"></script>
+    <script src="resources/js/login-validation.js" defer></script>
 
     <link rel="stylesheet" href="resources/css/styles.css" />
     <link href="resources/icons/favicon.jpeg" rel="icon" />
@@ -78,6 +80,30 @@
             </li>
             <li>
               <a href="about.html"> About Us </a>
+            </li>
+            <!-- Login Form -->
+            <li>
+              <!-- Login Form Container -->
+              <div id="login">
+                <form id="login-form">
+                  <a>Login</a>
+                  <input
+                    type="text"
+                    id="username"
+                    placeholder="Username"
+                    required
+                  />
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    required
+                  />
+                  <button type="submit" id="login-btn">Login</button>
+                  <br>
+                  <p id="login-message"></p>
+                </form>
+              </div>
             </li>
           </ul>
         </nav>
