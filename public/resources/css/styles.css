@@ -374,12 +374,12 @@ main #login-section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
+  padding: 0.938rem 1.25rem;
   background-color: var(--light-blue-color); /* Light blue background */
   border-radius: var(--border-radius-medium);
-  margin: 20px auto;
-  max-width: 800px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 1.25rem auto;
+  max-width: 50rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
 }
 
 /* Login form styling */
@@ -398,15 +398,15 @@ main #login-section #login-form #login-title {
 /* Container for inputs and button */
 main #login-section #login-form #login-inputs {
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
   align-items: center;
   justify-content: center;
 }
 
 /* Username and password inputs */
 main #login-section #login-form #login-inputs input {
-  padding: 10px;
-  border: 1px solid var(--blue-color); /* Blue border */
+  padding: 0.625rem;
+  border: 0.063rem solid var(--blue-color); /* Blue border */
   border-radius: var(--border-radius-small);
   font-size: 1rem;
   width: 150px; /* Fixed width for better alignment */
@@ -414,7 +414,7 @@ main #login-section #login-form #login-inputs input {
 
 /* Login button styling */
 main #login-section #login-form #login-inputs button {
-  padding: 10px 15px;
+  padding: 0.625rem 0.938rem;
   background-color: var(--blue-color); /* Blue background */
   color: var(--white-color); /* White text */
   border: none;
@@ -432,9 +432,9 @@ main #login-section #login-form #login-inputs button:hover {
 /* Login message styling */
 main #login-section #login-form #login-message {
   color: white; /* White text on green or blue background based on js form validation */
-  padding: 5px 10px;
-  border-radius: 5px;
-  margin-top: 10px;
+  padding: 0.313rem 0.625rem;
+  border-radius: 0.313rem;
+  margin-top: 0.625rem;
   display: inline-block;
 }
 
@@ -447,9 +447,9 @@ main #login-section #login-form #login-message {
 main #welcome-section {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 15px;
-  margin: 2%;
+  gap: 0.625rem;
+  padding: 0.625rem 0.938rem;
+  margin-bottom: 2%;
   background-color: var(--light-blue-color); /* Light blue background */
   color: var(--blue-color); /* Blue text */
   border-radius: var(--border-radius-medium);
@@ -463,7 +463,7 @@ main #welcome-section p {
 
 /* Logout button styling */
 main #welcome-section #logout-btn {
-  padding: 5px 10px;
+  padding: 0.313rem 0.625rem;
   background-color: var(--blue-color); /* Blue background */
   color: var(--white-color); /* White text */
   border: none;
