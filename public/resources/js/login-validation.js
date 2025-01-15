@@ -10,9 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (sessionId && username) {
     // User is logged in, show welcome section
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("welcome-section").style.display = "block";
-    document.getElementById("logged-in-user").textContent = username;
+    showWelcomeMessage(username, sessionId);
   } else {
     // No valid session, show login section
     document.getElementById("login-section").style.display = "block";
@@ -90,7 +88,7 @@ async function authenticateUser(username, password) {
     localStorage.setItem("username", username);
 
     // Show the welcome message
-    showWelcomeMessage(username);
+    showWelcomeMessage(username, data.sessionId);
   } catch (error) {
     console.error("Error during login:", error);
     showLoginMessage(
@@ -101,14 +99,18 @@ async function authenticateUser(username, password) {
 }
 
 // Function to replace the Login form with a welcome message
-function showWelcomeMessage(username) {
-  // Get elements
+function showWelcomeMessage(username, sessionId) {
+  // Get sections
   const loginSection = document.querySelector("#login-section");
   const welcomeSection = document.querySelector("#welcome-section");
-  const loggedInUser = document.querySelector("#logged-in-user");
 
   // Set the username in the welcome message
+  const loggedInUser = document.querySelector("#logged-in-user");
   loggedInUser.textContent = username;
+
+  // Set link for View Cart button
+  const viewCartBtn = document.querySelector("#view-cart-btn");
+  viewCartBtn.parentElement.href = `cart.html?username=${username}&sessionId=${sessionId}`;
 
   // Hide the login section and show the welcome section
   loginSection.style.display = "none";

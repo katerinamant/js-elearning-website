@@ -3,6 +3,7 @@
     ================================================== */
 :root {
   --background-color: #e4e4e4;
+  --crimson-color: #c30a0a;
   --blue-color: #1076a7;
   --green-color: #70a53d;
   --dark-green-color: #69993d;
@@ -461,20 +462,23 @@ main #welcome-section p {
   font-size: 1.2rem;
 }
 
-/* Logout button styling */
-main #welcome-section #logout-btn {
+/* Button styling in welcome section */
+main #welcome-section button {
   padding: 0.313rem 0.625rem;
-  background-color: var(--blue-color); /* Blue background */
+  font-size: 0.9rem;
+  font-weight: bold;
   color: var(--white-color); /* White text */
   border: none;
   border-radius: var(--border-radius-small);
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
 }
 
-/* Dark green background on hover */
-main #welcome-section #logout-btn:hover {
-  background-color: var(--dark-green-color);
+main #welcome-section #view-cart-btn {
+  background-color: var(--green-color); /* Yellow background */
+}
+
+main #welcome-section #logout-btn {
+  background-color: var(--crimson-color); /* Crimson background */
 }
 
 /* Responsive Adjustments */
