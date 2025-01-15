@@ -11,7 +11,7 @@ function userHasItem(username, itemId) {
 }
 
 // Function to add item to the user's cart
-function addItemToUser(username, {id, title, cost, type}) {
+function addItemToUser(username, { id, title, cost, type }) {
   if (!carts[username]) {
     // Initialize cart if it doesn't exist
     carts[username] = [];
@@ -20,4 +20,34 @@ function addItemToUser(username, {id, title, cost, type}) {
   carts[username].push({ id, title, cost, type });
 }
 
-module.exports = { userHasItem, addItemToUser };
+function removeItemFromUser(username, id) {
+  if (!carts[username]) {
+    return;
+  }
+
+  const itemIndex = carts[username].findIndex((item) => item.id === id);
+  if (itemIndex == -1) {
+    return;
+  }
+
+  carts[username].splice(itemIndex, 1);
+}
+
+function getUserCart(username) {
+  cart = carts[username] || [];
+
+  const totalCost = cart.reduce((sum, item) => sum + parseFloat(item.cost), 0);
+
+  // Return the JSON string
+  return {
+    cartItems: cart,
+    totalCost: totalCost,
+  };
+}
+
+module.exports = {
+  userHasItem,
+  addItemToUser,
+  removeItemFromUser,
+  getUserCart,
+};

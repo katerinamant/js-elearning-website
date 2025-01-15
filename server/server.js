@@ -10,7 +10,12 @@ const {
   verifySession,
   deleteSession,
 } = require("./dao/sessionsDao.js");
-const { userHasItem, addItemToUser } = require("./dao/cartsDao.js");
+const {
+  userHasItem,
+  addItemToUser,
+  removeItemFromUser,
+  getUserCart,
+} = require("./dao/cartsDao.js");
 
 const app = express();
 const PORT = 3000;
@@ -55,6 +60,34 @@ app.post("/login", (req, res) => {
 });
 
 // http://localhost:3000/cart
+
+// GET
+app.get("/cart", (req, res) => {
+  console.log("-- Received GET /cart request");
+  console.log(`Request query: ${JSON.stringify(req.query)}`);
+
+  const { username, sessionId } = req.query;
+
+  // Error when anything missing.
+  if (!username || !sessionId) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  // Verify the session
+  if (!verifySession(username, sessionId)) {
+    return res
+      .status(401)
+      .json({ message: "Unauthorized. Please log in again." });
+  }
+
+  return res.status(200).json({
+    status: "success",
+    message: `Cart returned for ${username} (${sessionId})`,
+    content: getUserCart(username),
+  });
+});
+
+// POST
 app.post("/cart", (req, res) => {
   console.log("-- Received POST /cart request");
   console.log("Request body:", req.body);
@@ -88,6 +121,44 @@ app.post("/cart", (req, res) => {
   return res.status(200).json({
     status: "success",
     message: "Item added to cart successfully.",
+  });
+});
+
+// http://localhost:3000/cart/remove
+app.post("/cart/remove", (req, res) => {
+  console.log("-- Received POST /cart/remove request");
+  console.log("Request body:", req.body);
+
+  const { id, username, sessionId } = req.body;
+
+  // Error when anything missing.
+  if (!id || !username || !sessionId) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  // Verify the session
+  if (!verifySession(username, sessionId)) {
+    return res
+      .status(401)
+      .json({ message: "Unauthorized. Please log in again." });
+  }
+
+  // Check if the user does not have item in cart
+  if (!userHasItem(username, id)) {
+    console.log(`User ${username} does not have item ${id} in their cart.`);
+    return res.status(409).json({
+      status: "error",
+      message: "Item not in cart.",
+    });
+  }
+
+  // Remove item from cart
+  removeItemFromUser(username, id);
+  console.log(`Removed item ${id} from ${username}'s cart.`);
+  return res.status(200).json({
+    status: "success",
+    message: "Item removed from cart successfully, updated cart.",
+    content: getUserCart(username),
   });
 });
 

@@ -1,1 +1,198 @@
-<p>Hello</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="resources/css/styles.css" />
+    <link href="resources/icons/favicon.jpeg" rel="icon" />
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Computer science e-learning platform." />
+    <meta name="author" content="Katerina Mantaraki, Alex Papadopoulos" />
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- React code -->
+    <script type="text/babel">
+      const { useState, useEffect } = React;
+
+      function CartApp() {
+        const [cartItems, setCartItems] = useState([]);
+        const [totalCost, setTotalCost] = useState(0);
+        const [error, setError] = useState("");
+
+        useEffect(() => {
+          // Extract username and sessionId from URL parameters
+          const params = new URLSearchParams(window.location.search);
+          const username = params.get("username");
+          const sessionId = params.get("sessionId");
+          if (!username || !sessionId) {
+            setError("Missing username or session ID.");
+            return;
+          }
+
+          // Fetch cart data from the server
+          fetch(
+            `http://localhost:3000/cart?username=${username}&sessionId=${sessionId}`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                setCartItems(data.content.cartItems);
+                setTotalCost(data.content.totalCost);
+              } else {
+                setError(data.message);
+              }
+            })
+            .catch((err) => setError("Failed to fetch cart data."));
+        }, []);
+
+        function handleRemoveItem(itemId) {
+          // Server request for item removal
+          const params = new URLSearchParams(window.location.search);
+          const username = params.get("username");
+          const sessionId = params.get("sessionId");
+          if (!username || !sessionId) {
+            setError("Missing username or session ID.");
+            return;
+          }
+
+          fetch(`http://localhost:3000/cart/remove`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, sessionId, id: itemId }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.status === "success") {
+                setCartItems(data.content.cartItems);
+                setTotalCost(data.content.totalCost);
+              } else {
+                alert(data.message);
+              }
+            })
+            .catch((err) => alert("Failed to remove item."));
+        }
+
+        if (error) {
+          return <p style={{ color: "red" }}>{error}</p>;
+        }
+
+        return (
+          <div class="cart-container">
+            <h2>Your Cart Items</h2>
+            {cartItems.length === 0 ? (
+              <p>Your cart is empty.</p>
+            ) : (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Cost</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartItems.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.type}</td>
+                      <td>{item.title}</td>
+                      <td>{item.cost} €</td>
+                      <td>
+                        <button onClick={() => handleRemoveItem(item.id)}>
+                          Remove
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+            <h3>Total Cost: {totalCost} €</h3>
+          </div>
+        );
+      }
+
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+      root.render(<CartApp />);
+    </script>
+  </head>
+
+  <body>
+    <div class="grid-with-no-aside">
+      <header>
+        <nav>
+          <a href="index.html">
+            <img
+              src="resources/logo/learninghub_logo-no-bg.png"
+              alt="LearningHub"
+            />
+          </a>
+
+          <ul>
+            <li>
+              <a href="index.html"> Home </a>
+            </li>
+            <li>
+              <a href="about.html"> About Us </a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main>
+        <div id="root"></div>
+      </main>
+
+      <footer>
+        <div class="footer-column">
+          <h2>More Information</h2>
+          <ul class="menu">
+            <li><a href="about.html" title="about_us_redirect">About Us</a></li>
+            <li>
+              <a
+                href="https://github.com/katerinamant/js-elearning-website"
+                title="repo"
+                >How We Did It</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h2>Contact Us</h2>
+          <ul class="menu">
+            <li>
+              <a
+                href="https://www.linkedin.com/in/katerinamant"
+                title="linkedin_katerina"
+              >
+                <img src="resources/icons/linkedin-logo.png" alt="LinkedIn" />
+                Katerina Mantaraki
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/alexiospap"
+                title="linkedin_alex"
+              >
+                <img src="resources/icons/linkedin-logo.png" alt="LinkedIn" />
+                Alexios Papadopoulos
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div id="copyright-disclaimer">
+          <p>
+            © Katerina Mantaraki, Alexios Papadopoulos<br />
+            Icons by <a href="https://icons8.com/">Icons8</a>
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -596,6 +596,82 @@ main .page-section #lecture-recs li .recommendation-content .buy-btn:hover {
 }
 
 /* ===================================================
+        CART PAGE STYLING
+   ================================================== */
+
+/* Cart table container */
+.cart-container {
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: var(--border-radius-medium);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for better separation */
+}
+
+/* Cart table */
+.cart-container table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+/* Table headers */
+.cart-container table th {
+  background-color: var(--blue-color); /* Darker blue background */
+  color: var(--white-color); /* White text */
+  padding: 0.8rem;
+  font-weight: bold;
+  border-bottom: 0.125rem solid var(--dark-green-color); /* Thicker border */
+}
+
+/* Right-align only the last header */
+.cart-container table th:last-child,
+td:last-child {
+  text-align: right;
+}
+
+/* Table cells */
+.cart-container table td {
+  padding: 0.8rem;
+  border-bottom: 0.063rem solid var(--light-blue-color); /* Light blue border */
+}
+
+/* Remove button */
+.cart-container table td button {
+  padding: 0.5rem 1rem;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Hover effect for remove button */
+.cart-container table td button:hover {
+  background-color: var(--dark-green-color); /* Dark green on hover */
+}
+
+/* Total cost */
+.cart-container h3 {
+  margin-top: 1rem;
+  color: var(--blue-color);
+  font-size: var(--font-size-large);
+  text-align: right;
+}
+
+/* Adjustments for small screens */
+@media only screen and (max-width: 768px) {
+  .cart-container table th,
+  .cart-container table td {
+    padding: 0.5rem;
+  }
+
+  .cart-container h3 {
+    text-align: center;
+  }
+}
+
+/* ===================================================
         SUBCATEGORY PAGE STYLING
         ================================================== *
 /* It uses all the stylings of the category page,
