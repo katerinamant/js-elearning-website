@@ -18,6 +18,7 @@ document.querySelector("#logout-btn").addEventListener("click", async () => {
   } catch (error) {
     console.error("Error during login:", error);
     alert("Logout failed. Please try again.");
+    return;
   }
 
   // Clear session data

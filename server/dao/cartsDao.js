@@ -20,6 +20,7 @@ function addItemToUser(username, { id, title, cost, type }) {
   carts[username].push({ id, title, cost, type });
 }
 
+// Function to remove item from user's cart
 function removeItemFromUser(username, id) {
   if (!carts[username]) {
     return;
@@ -33,6 +34,7 @@ function removeItemFromUser(username, id) {
   carts[username].splice(itemIndex, 1);
 }
 
+// Function to get all of the contents of a user's cart
 function getUserCart(username) {
   cart = carts[username] || [];
 

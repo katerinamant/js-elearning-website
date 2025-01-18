@@ -276,8 +276,8 @@ main .page-section h2 {
 /* Buttons in page sections */
 main section .btn {
   display: inline-block;
-  background-color: var(--white-color); /* White background */
-  color: var(--blue-color); /* Blue text */
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
   text-align: center;
   text-decoration: none; /* Remove underline */
   border-radius: 0.313rem;
@@ -288,8 +288,7 @@ main section .btn {
 
 /* Change button appearance on hover. */
 main section .btn:hover {
-  background-color: var(--blue-color); /* Blue background on hover */
-  color: var(--white-color); /* White text on hover */
+  background-color: var(--dark-green-color); /* Green background on hover */
 }
 
 /*
@@ -441,7 +440,7 @@ main #login-section #login-form #login-message {
 
 /*
         A container with a welcome message
-        to the user and a logout button.
+        to the user and a "View Cart" and "Logout" button.
         It is hidden by default and turned on
         with a successful login.
     */
@@ -504,7 +503,7 @@ main #welcome-section #logout-btn {
         ================================================== */
 
 /*
-  Flex container for each individual recommendations.
+  Flex container for each individual recommendation.
   It contains two elements: the image and a div of "recommendation-content".
 */
 main .page-section #book-recs,
@@ -600,7 +599,7 @@ main .page-section #lecture-recs li .recommendation-content .buy-btn:hover {
    ================================================== */
 
 /* Cart table container */
-.cart-container {
+main .cart-container {
   margin: 2rem auto;
   padding: 1rem;
   border-radius: var(--border-radius-medium);
@@ -608,14 +607,14 @@ main .page-section #lecture-recs li .recommendation-content .buy-btn:hover {
 }
 
 /* Cart table */
-.cart-container table {
+main .cart-container table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-/* Table headers */
-.cart-container table th {
+/* Cart table headers */
+main .cart-container table th {
   background-color: var(--blue-color); /* Darker blue background */
   color: var(--white-color); /* White text */
   padding: 0.8rem;
@@ -624,19 +623,19 @@ main .page-section #lecture-recs li .recommendation-content .buy-btn:hover {
 }
 
 /* Right-align only the last header */
-.cart-container table th:last-child,
-td:last-child {
+main .cart-container table th:last-child,
+main .cart-container table td:last-child {
   text-align: right;
 }
 
 /* Table cells */
-.cart-container table td {
+main .cart-container table td {
   padding: 0.8rem;
   border-bottom: 0.063rem solid var(--light-blue-color); /* Light blue border */
 }
 
 /* Remove button */
-.cart-container table td button {
+main .cart-container table td button {
   padding: 0.5rem 1rem;
   background-color: var(--blue-color);
   color: var(--white-color);
@@ -647,12 +646,12 @@ td:last-child {
 }
 
 /* Hover effect for remove button */
-.cart-container table td button:hover {
+main .cart-container table td button:hover {
   background-color: var(--dark-green-color); /* Dark green on hover */
 }
 
 /* Total cost */
-.cart-container h3 {
+main .cart-container h3 {
   margin-top: 1rem;
   color: var(--blue-color);
   font-size: var(--font-size-large);
@@ -674,7 +673,7 @@ td:last-child {
 /* ===================================================
         SUBCATEGORY PAGE STYLING
         ================================================== *
-/* It uses all the stylings of the category page,
+/* It uses all the stylings of the subcategory page,
   with additional settings for the features table
 */
 
@@ -685,6 +684,7 @@ main .page-section #lecture-recs li .recommendation-content .features-table {
   border-collapse: collapse;
   margin: 0 auto;
   border: 0.063rem solid var(--light-blue-color); /* Light blue border */
+  text-align: left;
 }
 
 /* Table headers */
@@ -695,7 +695,6 @@ main .page-section #lecture-recs li .recommendation-content .features-table th {
   ); /* Light blue background for the header */
   color: var(--blue-color); /* Darker blue text */
   padding: 0.8rem;
-  text-align: left;
   font-weight: bold;
   border-bottom: 0.125rem solid var(--blue-color); /* Thicker dark line separating the header and the cells */
 }

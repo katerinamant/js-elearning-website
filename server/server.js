@@ -25,6 +25,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // http://localhost:3000/login
+// Login Service (LS)
 app.post("/login", (req, res) => {
   console.log("-- Received POST /login request");
   console.log("Request body:", req.body);
@@ -62,6 +63,7 @@ app.post("/login", (req, res) => {
 // http://localhost:3000/cart
 
 // GET
+// Cart Retrieval Service (CRS)
 app.get("/cart", (req, res) => {
   console.log("-- Received GET /cart request");
   console.log(`Request query: ${JSON.stringify(req.query)}`);
@@ -88,6 +90,7 @@ app.get("/cart", (req, res) => {
 });
 
 // POST
+// Cart Item Service (CIS)
 app.post("/cart", (req, res) => {
   console.log("-- Received POST /cart request");
   console.log("Request body:", req.body);
@@ -125,6 +128,7 @@ app.post("/cart", (req, res) => {
 });
 
 // http://localhost:3000/cart/remove
+// Cart Update Service (CUS)
 app.post("/cart/remove", (req, res) => {
   console.log("-- Received POST /cart/remove request");
   console.log("Request body:", req.body);

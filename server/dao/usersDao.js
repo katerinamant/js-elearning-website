@@ -5,6 +5,7 @@ const users = [
   { username: "alex", password: "alex" },
 ];
 
+// Function to authenticate a user
 function authenticateUser(username, password) {
   return users.find(
     (user) => user.username === username && user.password === password

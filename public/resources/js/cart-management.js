@@ -1,3 +1,6 @@
+// Handles Cart Item Service (CIS) from user's side
+// Adds a product from the category page to the user's cart
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", async (event) => {
     // If user clicks the buy button

@@ -25,60 +25,69 @@
         const [error, setError] = useState("");
 
         useEffect(() => {
-          // Extract username and sessionId from URL parameters
-          const params = new URLSearchParams(window.location.search);
-          const username = params.get("username");
-          const sessionId = params.get("sessionId");
-          if (!username || !sessionId) {
-            setError("Missing username or session ID.");
-            return;
-          }
+          async function fetchCart() {
+            try {
+              // Extract username and sessionId from URL parameters
+              const params = new URLSearchParams(window.location.search);
+              const username = params.get("username");
+              const sessionId = params.get("sessionId");
 
-          // Fetch cart data from the server
-          fetch(
-            `http://localhost:3000/cart?username=${username}&sessionId=${sessionId}`
-          )
-            .then((response) => response.json())
-            .then((data) => {
+              if (!username || !sessionId) {
+                setError("Missing username or session ID.");
+                return;
+              }
+
+              // Fetch cart data from the server
+              const response = await fetch(
+                `http://localhost:3000/cart?username=${username}&sessionId=${sessionId}`
+              );
+
+              const data = await response.json();
+
               if (data.status === "success") {
                 setCartItems(data.content.cartItems);
                 setTotalCost(data.content.totalCost);
               } else {
                 setError(data.message);
               }
-            })
-            .catch((err) => setError("Failed to fetch cart data."));
-        }, []);
-
-        function handleRemoveItem(itemId) {
-          // Server request for item removal
-          const params = new URLSearchParams(window.location.search);
-          const username = params.get("username");
-          const sessionId = params.get("sessionId");
-          if (!username || !sessionId) {
-            setError("Missing username or session ID.");
-            return;
+            } catch (err) {
+              setError("Failed to fetch cart data.");
+            }
           }
 
-          fetch(`http://localhost:3000/cart/remove`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username, sessionId, id: itemId }),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.status === "success") {
-                setCartItems(data.content.cartItems);
-                setTotalCost(data.content.totalCost);
-              } else {
-                alert(data.message);
-              }
-            })
-            .catch((err) => alert("Failed to remove item."));
-        }
+          fetchCart();
+        }, []);
 
-        if (error) {
-          return <p style={{ color: "red" }}>{error}</p>;
+        async function handleRemoveItem(itemId) {
+          try {
+            // Extract username and sessionId from URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get("username");
+            const sessionId = params.get("sessionId");
+
+            if (!username || !sessionId) {
+              setError("Missing username or session ID.");
+              return;
+            }
+
+            // Server request for item removal
+            const response = await fetch(`http://localhost:3000/cart/remove`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, sessionId, id: itemId }),
+            });
+
+            const data = await response.json();
+
+            if (data.status === "success") {
+              setCartItems(data.content.cartItems);
+              setTotalCost(data.content.totalCost);
+            } else {
+              alert(data.message);
+            }
+          } catch (err) {
+            alert("Failed to remove item.");
+          }
         }
 
         return (
@@ -112,7 +121,7 @@
                 </tbody>
               </table>
             )}
-            <h3>Total Cost: {totalCost} €</h3>
+            <h3>Total Cost: {totalCost.toFixed(2)} €</h3>
           </div>
         );
       }
