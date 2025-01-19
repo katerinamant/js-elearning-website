@@ -257,6 +257,25 @@ a:hover {
   color: var(--white-color);
 }
 
+/* Button in intro sections */
+main .intro .btn {
+  display: inline-block;
+  background-color: var(--blue-color); /* Blue background */
+  color: var(--white-color); /* White text */
+  text-align: center;
+  text-decoration: none; /* Remove underline */
+  border-radius: 0.313rem;
+  padding: var(--padding-small) var(--padding-medium);
+  margin-top: var(--padding-small);
+  transition: background-color 0.3s; /* Smooth transition on hover effect */
+}
+
+/* Change button appearance on hover. */
+main .intro .btn:hover {
+  background-color: var(--white-color); /* White background on hover */
+  color: var(--blue-color); /* Blue text */
+}
+
 /* General page section styling */
 main .page-section {
   background-color: var(--white-color); /* White background */
@@ -274,7 +293,7 @@ main .page-section h2 {
 }
 
 /* Buttons in page sections */
-main section .btn {
+main .page-section .btn {
   display: inline-block;
   background-color: var(--blue-color); /* Blue background */
   color: var(--white-color); /* White text */
@@ -287,7 +306,7 @@ main section .btn {
 }
 
 /* Change button appearance on hover. */
-main section .btn:hover {
+main .page-section .btn:hover {
   background-color: var(--dark-green-color); /* Green background on hover */
 }
 
