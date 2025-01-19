@@ -1,7 +1,9 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
+const { connectDB } = require("./db");
 
 // Import DAOs
 const { authenticateUser } = require("./dao/usersDao.js");
@@ -20,13 +22,26 @@ const {
 const app = express();
 const PORT = 3000;
 
+let db = null; // MongoDB database instance
+
+// Initialize MongoDB if enabled
+if (process.env.USE_MONGO === "true") {
+  connectDB().then((database) => {
+    db = database;
+    console.log("Connected to MongoDB.");
+  }).catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Stop the server if MongoDB connection fails
+  });
+}
+
 // Setup server
 app.use(cors());
 app.use(bodyParser.json());
 
 // http://localhost:3000/login
 // Login Service (LS)
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   console.log("-- Received POST /login request");
   console.log("Request body:", req.body);
 
@@ -40,22 +55,18 @@ app.post("/login", (req, res) => {
       .json({ message: "Username and password are required." });
   }
 
-  // Look up user in DAO
-  const user = authenticateUser(username, password);
+  // Look up user in MongoDB
+  const user = authenticateUser(db, username, password);
 
   if (user) {
     // User found successfully
 
     // Generate a session ID
     const sessionId = uuidv4();
-
-    // Store the session
-    addSession(username, sessionId);
-
-    // Return the session ID
+    await addSession(db, username, sessionId);
     return res.status(200).json({ sessionId });
   } else {
-    // User not found successfully
+    // User not found
     return res.status(401).json({ message: "Invalid username or password." });
   }
 });
@@ -64,110 +75,91 @@ app.post("/login", (req, res) => {
 
 // GET
 // Cart Retrieval Service (CRS)
-app.get("/cart", (req, res) => {
+app.get("/cart", async (req, res) => {
   console.log("-- Received GET /cart request");
   console.log(`Request query: ${JSON.stringify(req.query)}`);
 
   const { username, sessionId } = req.query;
 
-  // Error when anything missing.
+  // Error when anything's missing.
   if (!username || !sessionId) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
   // Verify the session
-  if (!verifySession(username, sessionId)) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized. Please log in again." });
+  if (!(await verifySession(db, username, sessionId))) {
+    return res.status(401).json({ message: "Unauthorized. Please log in again." });
   }
 
   return res.status(200).json({
     status: "success",
     message: `Cart returned for ${username} (${sessionId})`,
-    content: getUserCart(username),
+    content: await getUserCart(db, username),
   });
 });
 
 // POST
 // Cart Item Service (CIS)
-app.post("/cart", (req, res) => {
+app.post("/cart", async (req, res) => {
   console.log("-- Received POST /cart request");
   console.log("Request body:", req.body);
 
   const { id, title, cost, type, username, sessionId } = req.body;
 
-  // Error when anything missing.
+  // Error when anything's missing.
   if (!id || !title || !cost || !type || !username || !sessionId) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
   // Verify the session
-  if (!verifySession(username, sessionId)) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized. Please log in again." });
+  if (!(await verifySession(db, username, sessionId))) {
+    return res.status(401).json({ message: "Unauthorized. Please log in again." });
   }
 
   // Check if the user already has this item in their cart
-  if (userHasItem(username, id)) {
-    console.log(`User ${username} already has item ${id} in their cart.`);
-    return res.status(409).json({
-      status: "error",
-      message: "Item is already in your cart.",
-    });
+  if (await userHasItem(db, username, id)) {
+    return res.status(409).json({ status: "error", message: "Item is already in your cart." });
   }
 
-  // Add the item to the cart
-  addItemToUser(username, { id, title, cost, type });
-  console.log(`Added item ${id} to ${username}'s cart.`);
-  return res.status(200).json({
-    status: "success",
-    message: "Item added to cart successfully.",
-  });
+  await addItemToUser(db, username, { id, title, cost, type });
+  return res.status(200).json({ status: "success", message: "Item added to cart successfully." });
 });
 
 // http://localhost:3000/cart/remove
 // Cart Update Service (CUS)
-app.post("/cart/remove", (req, res) => {
+app.post("/cart/remove", async (req, res) => {
   console.log("-- Received POST /cart/remove request");
   console.log("Request body:", req.body);
 
   const { id, username, sessionId } = req.body;
 
-  // Error when anything missing.
   if (!id || !username || !sessionId) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
   // Verify the session
-  if (!verifySession(username, sessionId)) {
-    return res
-      .status(401)
-      .json({ message: "Unauthorized. Please log in again." });
+  if (!(await verifySession(db, username, sessionId))) {
+    return res.status(401).json({ message: "Unauthorized. Please log in again." });
   }
 
   // Check if the user does not have item in cart
-  if (!userHasItem(username, id)) {
-    console.log(`User ${username} does not have item ${id} in their cart.`);
-    return res.status(409).json({
-      status: "error",
-      message: "Item not in cart.",
-    });
+  if (!(await userHasItem(db, username, id))) {
+    return res.status(409).json({ status: "error", message: "Item not in cart." });
   }
 
   // Remove item from cart
-  removeItemFromUser(username, id);
+  await removeItemFromUser(db, username, id);
   console.log(`Removed item ${id} from ${username}'s cart.`);
   return res.status(200).json({
     status: "success",
-    message: "Item removed from cart successfully, updated cart.",
-    content: getUserCart(username),
+    message: "Item removed from cart successfully.",
+    content: await getUserCart(db, username),
   });
 });
 
 // http://localhost:3000/logout
-app.post("/logout", (req, res) => {
+// Logout Service
+app.post("/logout", async (req, res) => {
   console.log("-- Received POST /logout request");
   console.log("Request body:", req.body);
 
@@ -175,7 +167,7 @@ app.post("/logout", (req, res) => {
 
   if (sessionId) {
     // Remove a valid sessionId
-    deleteSession(sessionId);
+    await deleteSession(db, sessionId);
     return res.status(200).json({ message: "Logged out successfully." });
   } else {
     return res.status(400).json({ message: "Session ID is required." });
