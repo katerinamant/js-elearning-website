@@ -1,18 +1,21 @@
-const sessions = {}; // { sessionId: username }
-
 // Function to a session for a user
-function addSession(username, sessionId) {
-  sessions[sessionId] = username;
+async function addSession(db, username, sessionId) {
+  await db.collection("sessions").updateOne(
+    { username },
+    { $set: { sessionId, createdAt: new Date() } },
+    { upsert: true }
+  );
 }
 
 // Function to verify a session
-function verifySession(username, sessionId) {
-  return sessions[sessionId] === username;
+async function verifySession(db, username, sessionId) {
+  const session = await db.collection("sessions").findOne({ username, sessionId });
+  return !!session;
 }
 
 // Function to delete a session
-function deleteSession(sessionId) {
-  delete sessions[sessionId];
+async function deleteSession(db, sessionId) {
+  await db.collection("sessions").deleteOne({ sessionId });
 }
 
 module.exports = { addSession, verifySession, deleteSession };
