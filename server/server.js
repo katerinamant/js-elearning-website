@@ -22,13 +22,18 @@ const {
 const app = express();
 const PORT = 3000;
 
-let db; // MongoDB database instance
+let db = null; // MongoDB database instance
 
-// Initialize MongoDB connection
-connectDB().then((database) => {
-  db = database;
-  console.log("Connected to MongoDB.");
-});
+// Initialize MongoDB if enabled
+if (process.env.USE_MONGO === "true") {
+  connectDB().then((database) => {
+    db = database;
+    console.log("Connected to MongoDB.");
+  }).catch((err) => {
+    console.error("MongoDB connection error:", err);
+    process.exit(1); // Stop the server if MongoDB connection fails
+  });
+}
 
 // Setup server
 app.use(cors());
